@@ -62,8 +62,11 @@ RUN sed -i 's/main$/main universe/' /etc/apt/sources.list \
       sudo \
       tig \
       vim \
+      lftp \
       wget \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && chmod -R 777 /var/run/screen \
+ ; chmod -R 777 /var/run/screen
 
 ARG hostuid=1000
 ARG hostgid=1000
