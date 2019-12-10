@@ -69,7 +69,8 @@ RUN sed -i 's/main$/main universe/' /etc/apt/sources.list \
  && rm -rf /var/lib/apt/lists/* \
  && chmod -R 777 /var/run/screen \
  && chmod -R 777 /srv/ccache \
- ; chmod -R 777 /var/run/screen
+ ; chmod -R 777 /var/run/screen \
+ ; chmod -R 777 /srv/ccache
 
 ARG hostuid=1000
 ARG hostgid=1000
@@ -90,8 +91,6 @@ RUN chmod a+x /home/gitpod/startup.sh
 
 # Fix ownership
 RUN chown -R gitpod:gitpod /home/gitpod
-RUN chmod -R 777 /srv/ccache
-RUN chmod -R 777 /var/run/screen
 
 VOLUME /home/gitpod/android
 VOLUME /srv/ccache
