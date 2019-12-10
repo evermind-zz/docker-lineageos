@@ -75,26 +75,28 @@ ARG hostuid=1000
 ARG hostgid=1000
 
 RUN \
-    groupadd --gid $hostgid --force build && \
-    useradd --gid $hostgid --uid $hostuid --non-unique build && \
-    rsync -a /etc/skel/ /home/build/
+    groupadd --gid $hostgid --force gitpod && \
+    useradd --gid $hostgid --uid $hostuid --non-unique gitpod && \
+    rsync -a /etc/skel/ /home/gitpod/
 
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo \
  && chmod a+x /usr/local/bin/repo
 
 # Add sudo permission
-RUN echo "build ALL=NOPASSWD: ALL" > /etc/sudoers.d/build
+RUN echo "gitpod ALL=NOPASSWD: ALL" > /etc/sudoers.d/gitpod
 
-ADD startup.sh /home/build/startup.sh
-RUN chmod a+x /home/build/startup.sh
+ADD startup.sh /home/gitpod/startup.sh
+RUN chmod a+x /home/gitpod/startup.sh
 
 # Fix ownership
-RUN chown -R build:build /home/build
+RUN chown -R gitpod:gitpod /home/gitpod
+RUN chmod -R 777 /srv/ccache
+RUN chmod -R 777 /var/run/screen
 
-VOLUME /home/build/android
+VOLUME /home/gitpod/android
 VOLUME /srv/ccache
 
-USER build
-WORKDIR /home/build/android
+USER gitpod
+WORKDIR /home/gitpod/android
 
-CMD /home/build/startup.sh
+CMD /home/gitpod/startup.sh
