@@ -64,8 +64,11 @@ RUN sed -i 's/main$/main universe/' /etc/apt/sources.list \
       vim \
       lftp \
       wget \
+# this are for OpenWrt stuff
+      libncursesw5-dev gawk gettext unzip python python3 \
  && rm -rf /var/lib/apt/lists/* \
  && chmod -R 777 /var/run/screen \
+ && chmod -R 777 /srv/ccache \
  ; chmod -R 777 /var/run/screen
 
 ARG hostuid=1000
