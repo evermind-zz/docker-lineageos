@@ -68,7 +68,7 @@ RUN sed -i 's/main$/main universe/' /etc/apt/sources.list \
       libncursesw5-dev gawk gettext unzip python python3 \
  && rm -rf /var/lib/apt/lists/* \
  && chmod -R 777 /var/run/screen \
- && chmod -R 777 /srv/ccache \
+ ; mkdir -p /srv/ccache \
  ; chmod -R 777 /var/run/screen \
  ; chmod -R 777 /srv/ccache
 
